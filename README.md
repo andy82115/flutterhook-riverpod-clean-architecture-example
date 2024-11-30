@@ -1,16 +1,18 @@
-# flutter_hook_riverpod_clean_architecture
+# Step for dev
+1. Checking doc of Github api [search/repository](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-repositories) , [query detail of "search/repository"](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)
+2. Check device version setting
+- [X] Andriod Versiono Setting
+- [X] iOS Veresion Setting (min versino only)
 
-A Flutter project with riverpod + clean architecture + fluttter hook (For exam)
+3. Main third-party: riverpod + flutter-hook + mocktail + retrofit + Dio
 
-## Getting Started
+# Rule of coding
 
-This project is a starting point for a Flutter application.
+1. lint -> flutter_lints
+2. commit style -> [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
+   ```
+   [optional scope]: <description> [emoji][emoji][emoji]
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   [optional body]
+   ```
+3.  
