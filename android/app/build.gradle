@@ -24,7 +24,7 @@ android {
         applicationId = "com.example.andyyeh.flutter_hook_riverpod_clean_architecture"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 16
+        minSdk = 19
         targetSdk = 32
         versionCode = flutter.versionCode
         versionName = flutter.versionName

@@ -1,7 +1,7 @@
 # Step for dev
 1. Checking doc of Github api [search/repository](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-repositories) , [query detail of "search/repository"](https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories)
 2. Check device version setting
-- [X] Andriod Versiono Setting
+- [X] Andriod Versiono Setting (sdk 19 ~ 32 only)
 - [X] iOS Veresion Setting (min versino only)
 
 3. Main third-party: riverpod + flutter-hook + mocktail + retrofit + Dio
