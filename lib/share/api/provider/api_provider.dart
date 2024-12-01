@@ -17,34 +17,35 @@ ApiService apiService(Ref ref) {
   final logger = ref.watch(loggerProvider);
   final apiErrorHandle = ref.watch(apiErrorHandleNotifierProvider.notifier);
 
-  final Dio dio = Dio()..interceptors.add(InterceptorsWrapper(
-    onRequest: (options, handler) {
-      options.headers['Authorization'] = 'Bearer $token';
+  final Dio dio = Dio()
+    ..interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers['Authorization'] = 'Bearer $token';
 
-      ///The normal Options.uri will encode Parameter, where this API don't need it
-      ///通常のOptions.uriはParameterをエンコードするが、このAPIはそれを必要としない。
-      if (options.path.startsWith('/search/repositories')){
-        final myRequestOptions = MyRequestOptions()
-          ..path = options.path
-          ..baseUrl = options.baseUrl
-          ..queryParameters = options.queryParameters;
-        logger.d('---interceptor--- onRequest: ${myRequestOptions.uri}');
-        return handler.next(myRequestOptions);
-      }
+        ///The normal Options.uri will encode Parameter, where this API don't need it
+        ///通常のOptions.uriはParameterをエンコードするが、このAPIはそれを必要としない。
+        if (options.path.startsWith('/search/repositories')) {
+          final myRequestOptions = MyRequestOptions()
+            ..path = options.path
+            ..baseUrl = options.baseUrl
+            ..queryParameters = options.queryParameters;
+          logger.d('---interceptor--- onRequest: ${myRequestOptions.uri}');
+          return handler.next(myRequestOptions);
+        }
 
-      logger.d('---interceptor--- onRequest: ${options.uri}');
-      return handler.next(options);
-    },
-    onResponse: (response, handler) {
-      logger.d('---interceptor--- onResponse: ${response.statusCode}');
-      return handler.next(response);
-    },
-    onError: (DioException e, handler) {
-      logger.d('---interceptor--- onError: ${e.message}');
-      apiErrorHandle.reportError();
-      return handler.next(e);
-    },
-  ));
+        logger.d('---interceptor--- onRequest: ${options.uri}');
+        return handler.next(options);
+      },
+      onResponse: (response, handler) {
+        logger.d('---interceptor--- onResponse: ${response.statusCode}');
+        return handler.next(response);
+      },
+      onError: (DioException e, handler) {
+        logger.d('---interceptor--- onError: ${e.message}');
+        apiErrorHandle.reportError();
+        return handler.next(e);
+      },
+    ));
 
   return ApiService(dio);
 }
@@ -64,7 +65,6 @@ class MyRequestOptions extends RequestOptions {
     final queryParameters = this.queryParameters;
 
     if (queryParameters.isNotEmpty) {
-
       final queryString = queryParameters.entries.map((e) {
         return '${e.key}=${e.value}';
       }).join('&');

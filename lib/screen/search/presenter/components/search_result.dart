@@ -47,9 +47,9 @@ class _SearchResultState extends ConsumerState<SearchResult> {
     );
   }
 
-  Widget _switchStateWidget () {
+  Widget _switchStateWidget() {
     final notifier = ref.watch(searchStateNotifierProvider);
-    switch(notifier.fetchState) {
+    switch (notifier.fetchState) {
       case SearchFetchState.init:
         return const Text('Keyword is empty');
       case SearchFetchState.initLoading:
@@ -63,7 +63,7 @@ class _SearchResultState extends ConsumerState<SearchResult> {
     }
   }
 
-  Widget _listViewWidget () {
+  Widget _listViewWidget() {
     final notifier = ref.watch(searchStateNotifierProvider);
 
     return ListView.separated(
@@ -74,8 +74,7 @@ class _SearchResultState extends ConsumerState<SearchResult> {
         final data = notifier.repositoryList[index];
         return ListTile(
           leading: CircleAvatar(
-              backgroundImage:
-              NetworkImage(data.owner?.avatarUrl ?? '')),
+              backgroundImage: NetworkImage(data.owner?.avatarUrl ?? '')),
           title: Text(
             data.fullName ?? 'no name',
             style: Theme.of(context).textTheme.bodyLarge,
@@ -87,15 +86,12 @@ class _SearchResultState extends ConsumerState<SearchResult> {
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
-          onTap: (){
-            AutoRouter.of(context).push( DetailRoute(
-                owner: data.owner?.login ?? '',
-                repo: data.name ?? ''
-            ));
+          onTap: () {
+            AutoRouter.of(context).push(DetailRoute(
+                owner: data.owner?.login ?? '', repo: data.name ?? ''));
           },
         );
       },
     );
   }
 }
-

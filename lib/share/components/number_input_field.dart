@@ -11,18 +11,18 @@ class NumberInputField extends StatelessWidget {
   final TextEditingController controller;
   final Function(int) onInputChange;
 
-  const NumberInputField({
-    required this.labelText,
-    required this.onInputChange,
-    required this.controller,
-    super.key
-  });
+  const NumberInputField(
+      {required this.labelText,
+      required this.onInputChange,
+      required this.controller,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: false),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: true, decimal: false),
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
       ],

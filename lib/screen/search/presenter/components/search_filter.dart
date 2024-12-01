@@ -25,20 +25,23 @@ class SearchFilter extends HookConsumerWidget {
               isExtend.value = !isExtend.value;
             },
           ),
-          isExtend.value ? Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
-            decoration: BoxDecoration(
-              color:Theme.of(context).colorScheme.primary.withRed(200),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const SearchFilterExtend(),
-          ) : Container(),
+          isExtend.value
+              ? Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary.withRed(200),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const SearchFilterExtend(),
+                )
+              : Container(),
         ],
       ),
     );
   }
-
 }
 
 ///#[SearchFilterTop] Components
@@ -51,11 +54,8 @@ class SearchFilterTop extends HookConsumerWidget {
   final bool isExtended;
   final Function onClick;
 
-  const SearchFilterTop({
-    required this.isExtended,
-    required this.onClick,
-    super.key
-  });
+  const SearchFilterTop(
+      {required this.isExtended, required this.onClick, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,14 +76,15 @@ class SearchFilterTop extends HookConsumerWidget {
           bottom: 0,
           right: 0,
           child: CupertinoButton(
-            padding: const EdgeInsets.all( 3 ), // Remove padding if you only want the icon to be clickable
+            padding: const EdgeInsets.all(
+                3), // Remove padding if you only want the icon to be clickable
             onPressed: () {
               onClick();
             },
             child: Icon(
               isExtended ? CupertinoIcons.minus : CupertinoIcons.add,
-              size: 20,  // Set the size of the icon
-              color: CupertinoColors.inactiveGray,  // Set the color of the icon
+              size: 20, // Set the size of the icon
+              color: CupertinoColors.inactiveGray, // Set the color of the icon
             ),
           ),
         ),
@@ -99,7 +100,8 @@ class InWhereRow extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(searchStateNotifierProvider.notifier);
     final inWhereData = InWhere.getStringList();
-    final selectedIndex = useState(notifier.searchParam.queryFilter.inWhere.index);
+    final selectedIndex =
+        useState(notifier.searchParam.queryFilter.inWhere.index);
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -107,10 +109,11 @@ class InWhereRow extends HookConsumerWidget {
         children: List.generate(inWhereData.length, (index) {
           final data = inWhereData[index];
 
-          return  InkWell(
+          return InkWell(
             onTap: () {
               selectedIndex.value = index;
-              notifier.setSearchCondition(inWhere: InWhere.values[selectedIndex.value]);
+              notifier.setSearchCondition(
+                  inWhere: InWhere.values[selectedIndex.value]);
               notifier.checkKeywordAndSearch();
             },
             child: Container(
@@ -134,7 +137,7 @@ class InWhereRow extends HookConsumerWidget {
   }
 }
 
-class KeyWordTextField extends HookConsumerWidget{
+class KeyWordTextField extends HookConsumerWidget {
   const KeyWordTextField({super.key});
 
   @override
@@ -143,9 +146,7 @@ class KeyWordTextField extends HookConsumerWidget{
 
     return TextField(
       decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
-          labelText: 'キーワード'
-      ),
+          border: UnderlineInputBorder(), labelText: 'キーワード'),
       onChanged: (inputValue) {
         notifier.setSearchCondition(keyword: inputValue);
         notifier.checkKeywordAndSearch();
@@ -155,7 +156,7 @@ class KeyWordTextField extends HookConsumerWidget{
 }
 
 ///#[SearchFilterExtend] Components
-class SearchFilterExtend extends HookConsumerWidget{
+class SearchFilterExtend extends HookConsumerWidget {
   const SearchFilterExtend({super.key});
 
   @override
@@ -173,7 +174,7 @@ class SearchFilterExtend extends HookConsumerWidget{
   }
 }
 
-class NumberFilter extends HookConsumerWidget{
+class NumberFilter extends HookConsumerWidget {
   const NumberFilter({super.key});
 
   @override
@@ -192,13 +193,13 @@ class NumberFilter extends HookConsumerWidget{
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: NumberInputField(
                 labelText: 'フォロワーズ',
-                controller: TextEditingController(text: followers.value.toString()),
+                controller:
+                    TextEditingController(text: followers.value.toString()),
                 onInputChange: (inputValue) {
                   followers.value = inputValue;
                   notifier.setSearchCondition(followers: inputValue);
                   notifier.checkKeywordAndSearch();
-                }
-            ),
+                }),
           ),
         ),
         Expanded(
@@ -211,8 +212,7 @@ class NumberFilter extends HookConsumerWidget{
                 onInputChange: (inputValue) {
                   notifier.setSearchCondition(forks: inputValue);
                   notifier.checkKeywordAndSearch();
-                }
-            ),
+                }),
           ),
         ),
         Expanded(
@@ -225,8 +225,7 @@ class NumberFilter extends HookConsumerWidget{
                 onInputChange: (inputValue) {
                   notifier.setSearchCondition(stars: inputValue);
                   notifier.checkKeywordAndSearch();
-                }
-            ),
+                }),
           ),
         ),
       ],
@@ -244,10 +243,8 @@ class LanguageInput extends HookConsumerWidget {
 
     return TextField(
       controller: TextEditingController(text: language.value),
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: '言語'
-      ),
+      decoration:
+          const InputDecoration(border: OutlineInputBorder(), labelText: '言語'),
       onChanged: (inputValue) {
         notifier.setSearchCondition(language: inputValue);
         notifier.checkKeywordAndSearch();

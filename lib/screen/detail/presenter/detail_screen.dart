@@ -11,11 +11,7 @@ class DetailScreen extends StatefulHookConsumerWidget {
   final String owner;
   final String repo;
 
-  const DetailScreen({
-    required this.owner,
-    required this.repo,
-    super.key
-  });
+  const DetailScreen({required this.owner, required this.repo, super.key});
 
   @override
   ConsumerState<DetailScreen> createState() => _DetailScreenState();
@@ -108,9 +104,8 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     );
   }
 
-  List<Widget> _columnDividerWidget({
-    required String text, String? tagName, IconData? icon
-  }) {
+  List<Widget> _columnDividerWidget(
+      {required String text, String? tagName, IconData? icon}) {
     if (tagName == null && icon == null) return [Container()];
     return [
       tagName != null

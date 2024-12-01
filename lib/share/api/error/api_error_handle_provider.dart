@@ -16,31 +16,30 @@ class ApiErrorHandleNotifier extends _$ApiErrorHandleNotifier {
     return const ApiErrorState();
   }
 
-  void forceBack(){
+  void forceBack() {
     state = state.copyWith(
       errorState: ErrorState.noError,
     );
   }
 
-  void reportError(){
+  void reportError() {
     state = state.copyWith(
-        errorState: state.errorState,
+      errorState: state.errorState,
     );
   }
 
   void addToRetryList(Exception e, Future<void> Function() retry) {
-    if ( e is DioException ){
+    if (e is DioException) {
       logger.e('$runtimeType, add to retry list ${retry.runtimeType}');
       state = state.copyWith(
-        errorState: state.errorState == ErrorState.noError
-            ? ErrorState.error
-            : state.errorState,
-        retryList: [...state.retryList, retry]
-      );
+          errorState: state.errorState == ErrorState.noError
+              ? ErrorState.error
+              : state.errorState,
+          retryList: [...state.retryList, retry]);
     }
   }
 
-  Future<void> doRetry() async{
+  Future<void> doRetry() async {
     if (state.retryList.isEmpty) return;
 
     final list = [...state.retryList];
@@ -51,7 +50,7 @@ class ApiErrorHandleNotifier extends _$ApiErrorHandleNotifier {
 
     await Future.delayed(const Duration(seconds: 2));
 
-    for(var retry in list){
+    for (var retry in list) {
       logger.e('$runtimeType, retry function ${retry.runtimeType}');
       await retry();
       await Future.delayed(const Duration(microseconds: 200));
@@ -61,8 +60,7 @@ class ApiErrorHandleNotifier extends _$ApiErrorHandleNotifier {
       state = state.copyWith(
         errorState: ErrorState.noError,
       );
-    }
-    else {
+    } else {
       state = state.copyWith(
         errorState: ErrorState.error,
       );

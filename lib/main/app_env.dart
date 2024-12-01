@@ -8,9 +8,13 @@ abstract class EnvInfo {
   }
 
   static String get appName => _environment._appTitle;
+
   static String get envName => _environment._envName;
+
   static String get connectionString => _environment._connectionString;
+
   static AppEnvironment get environment => _environment;
+
   static bool get isProduction => _environment == AppEnvironment.prod;
 }
 
@@ -31,6 +35,8 @@ extension _EnvProperties on AppEnvironment {
   };
 
   String get _appTitle => _appTitles[this]!;
+
   String get _envName => _envs[this]!;
+
   String get _connectionString => _connectionStrings[this]!;
 }

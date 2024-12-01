@@ -23,10 +23,9 @@ class SearchStateNotifier extends _$SearchStateNotifier {
   Timer? _initSearchDebounceTimer;
   Timer? _fetchMoreDebounceTimer;
 
-
   bool get isFetchingAllow =>
       state.fetchState != SearchFetchState.initLoading &&
-          state.fetchState != SearchFetchState.moreLoading;
+      state.fetchState != SearchFetchState.moreLoading;
 
   @override
   SearchState build() {
@@ -40,22 +39,21 @@ class SearchStateNotifier extends _$SearchStateNotifier {
   Future<void> fetchMoreData() async {
     _fetchMoreDebounceTimer?.cancel();
 
-    _initSearchDebounceTimer = Timer(const Duration(milliseconds: 300), () async {
+    _initSearchDebounceTimer =
+        Timer(const Duration(milliseconds: 300), () async {
       ///do nothing if reach max page
-      if(state.fetchState == SearchFetchState.max) return;
-      if(state.fetchState == SearchFetchState.init) return;
+      if (state.fetchState == SearchFetchState.max) return;
+      if (state.fetchState == SearchFetchState.init) return;
 
       if (isFetchingAllow) {
-        state = state.copyWith(
-            fetchState: SearchFetchState.moreLoading
-        );
+        state = state.copyWith(fetchState: SearchFetchState.moreLoading);
 
         _requestRepositoryApi('fetchMoreData', fetchMoreData);
       }
     });
   }
 
-  Future<void> checkKeywordAndSearch() async{
+  Future<void> checkKeywordAndSearch() async {
     if (_isKeyWordEmpty()) return;
     _searchAgain();
   }
@@ -73,7 +71,7 @@ class SearchStateNotifier extends _$SearchStateNotifier {
     String? language,
     SearchSort? sort,
     SearchOrder? order,
-  }){
+  }) {
     final queryFilter = _getNewQueryFilter(
       keyword: keyword,
       inWhere: inWhere,
@@ -113,38 +111,36 @@ class SearchStateNotifier extends _$SearchStateNotifier {
 
   ///#Support function -> Api search
   ///Get new Data when keyword or condition renew
-  Future<void> _searchAgain() async{
+  Future<void> _searchAgain() async {
     logger.d('$runtimeType: searchAgain start, search new with new condition');
     _initSearchDebounceTimer?.cancel();
 
-    _initSearchDebounceTimer = Timer(const Duration(milliseconds: 500), () async {
+    _initSearchDebounceTimer =
+        Timer(const Duration(milliseconds: 500), () async {
       if (isFetchingAllow) {
         logger.d('$runtimeType: searchAgain success, use api to search');
 
         ///reset param
-        state = const SearchState(
-            fetchState: SearchFetchState.initLoading
-        );
+        state = const SearchState(fetchState: SearchFetchState.initLoading);
 
         _requestRepositoryApi('search again', _searchAgain);
       }
     });
   }
 
-  Future<void> _requestRepositoryApi(String tag, Future<void> Function() retry) async {
+  Future<void> _requestRepositoryApi(
+      String tag, Future<void> Function() retry) async {
     searchParam = searchParam.copyWith(page: state.currentPage);
     try {
-      final response = await repository.getRepositoryList(searchParam: searchParam);
+      final response =
+          await repository.getRepositoryList(searchParam: searchParam);
 
       logger.d('$runtimeType: $tag success, response value = $response');
 
       _updateStateFromResponse(response);
-    }
-    catch (e){
-      state = const SearchState(
-          fetchState: SearchFetchState.fail
-      );
-      if(e is Exception) apiErrorHandleNotifier.addToRetryList(e, retry);
+    } catch (e) {
+      state = const SearchState(fetchState: SearchFetchState.fail);
+      if (e is Exception) apiErrorHandleNotifier.addToRetryList(e, retry);
     }
   }
 
