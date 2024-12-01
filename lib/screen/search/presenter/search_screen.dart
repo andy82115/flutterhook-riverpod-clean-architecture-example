@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../share/theme/provider/theme_provider.dart';
+import 'components/search_filter.dart';
 
 @RoutePage()
 class SearchScreen extends StatefulHookConsumerWidget {
@@ -47,7 +48,7 @@ class _SearchState extends ConsumerState<SearchScreen> {
       ),
       body: const Column(
         children: [
-
+          SearchFilter(),
         ],
       ),
     );
