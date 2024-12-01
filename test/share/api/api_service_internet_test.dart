@@ -21,7 +21,6 @@ void main() {
       try {
         final response = await apiService.getRepositoryDetail('square', 'retrofit');
 
-        print('Response = $response');
         expect(response, isA<DetailResponse>());
       } catch (e) {
         fail('API call failed: $e');
@@ -36,7 +35,6 @@ void main() {
         ///Page min is 1
         final response = await apiService.getRepositoryList('retrofit', 'asc', 'updated', 2, 1);
 
-        print('Response = $response');
         expect(response, isA<SearchResponse>());
       } catch (e) {
         fail('API call failed: $e');

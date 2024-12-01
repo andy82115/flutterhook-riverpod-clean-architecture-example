@@ -34,9 +34,6 @@ void main() {
       final responseDetail = await apiService.getRepositoryDetail('owner', 'repo');
       final responseSearch = await apiService.getRepositoryList('query', 'sort', 'order', 2, 1);
 
-      print('Response = $responseDetail');
-      print('Response = $responseSearch');
-
       expect(responseDetail, isA<DetailResponse>());
       expect(responseSearch, isA<SearchResponse>());
     });

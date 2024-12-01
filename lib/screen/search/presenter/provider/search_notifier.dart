@@ -84,7 +84,7 @@ class SearchStateNotifier extends _$SearchStateNotifier {
     );
 
     searchParam = searchParam.copyWith(
-      queryFilter: queryFilter ?? searchParam.queryFilter,
+      queryFilter: queryFilter,
       sort: sort ?? searchParam.sort,
       order: order ?? searchParam.order,
     );
