@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../router/app_router.gr.dart';
 import '../provider/search_notifier.dart';
 import '../state/search_state.dart';
 
@@ -50,15 +51,15 @@ class _SearchResultState extends ConsumerState<SearchResult> {
   Widget _switchStateWidget () {
     final notifier = ref.watch(searchStateNotifierProvider);
     switch(notifier.fetchState) {
-      case SearchRepositoryFetchState.init:
+      case SearchFetchState.init:
         return const Text('Keyword is empty');
-      case SearchRepositoryFetchState.initLoading:
+      case SearchFetchState.initLoading:
         return const CircularProgressIndicator();
-      case SearchRepositoryFetchState.fail:
+      case SearchFetchState.fail:
         return const Text('Loaded fail');
-      case SearchRepositoryFetchState.loaded:
-      case SearchRepositoryFetchState.moreLoading:
-      case SearchRepositoryFetchState.max:
+      case SearchFetchState.loaded:
+      case SearchFetchState.moreLoading:
+      case SearchFetchState.max:
         return _listViewWidget();
     }
   }
@@ -88,7 +89,10 @@ class _SearchResultState extends ConsumerState<SearchResult> {
             maxLines: 1,
           ),
           onTap: (){
-
+            AutoRouter.of(context).push( DetailRoute(
+                owner: data.owner?.login ?? '',
+                repo: data.name ?? ''
+            ));
           },
         );
       },

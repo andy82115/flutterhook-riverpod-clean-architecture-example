@@ -10,13 +10,13 @@ part 'search_state.freezed.dart';
 class SearchState with _$SearchState{
   const factory SearchState({
     @Default([]) List<Item> repositoryList,
-    @Default(SearchRepositoryFetchState.init) SearchRepositoryFetchState fetchState,
+    @Default(SearchFetchState.init) SearchFetchState fetchState,
     @Default(50) int total,
     @Default(1) int currentPage,
   }) = _SearchState;
 }
 
-enum SearchRepositoryFetchState {
+enum SearchFetchState {
   init,
   initLoading,
   loaded,

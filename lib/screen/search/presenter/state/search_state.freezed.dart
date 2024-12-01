@@ -17,8 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SearchState {
   List<Item> get repositoryList => throw _privateConstructorUsedError;
-  SearchRepositoryFetchState get fetchState =>
-      throw _privateConstructorUsedError;
+  SearchFetchState get fetchState => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
 
@@ -37,7 +36,7 @@ abstract class $SearchStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Item> repositoryList,
-      SearchRepositoryFetchState fetchState,
+      SearchFetchState fetchState,
       int total,
       int currentPage});
 }
@@ -70,7 +69,7 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
       fetchState: null == fetchState
           ? _value.fetchState
           : fetchState // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoryFetchState,
+              as SearchFetchState,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -93,7 +92,7 @@ abstract class _$$SearchStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<Item> repositoryList,
-      SearchRepositoryFetchState fetchState,
+      SearchFetchState fetchState,
       int total,
       int currentPage});
 }
@@ -124,7 +123,7 @@ class __$$SearchStateImplCopyWithImpl<$Res>
       fetchState: null == fetchState
           ? _value.fetchState
           : fetchState // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoryFetchState,
+              as SearchFetchState,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -142,7 +141,7 @@ class __$$SearchStateImplCopyWithImpl<$Res>
 class _$SearchStateImpl implements _SearchState {
   const _$SearchStateImpl(
       {final List<Item> repositoryList = const [],
-      this.fetchState = SearchRepositoryFetchState.init,
+      this.fetchState = SearchFetchState.init,
       this.total = 50,
       this.currentPage = 1})
       : _repositoryList = repositoryList;
@@ -158,7 +157,7 @@ class _$SearchStateImpl implements _SearchState {
 
   @override
   @JsonKey()
-  final SearchRepositoryFetchState fetchState;
+  final SearchFetchState fetchState;
   @override
   @JsonKey()
   final int total;
@@ -205,14 +204,14 @@ class _$SearchStateImpl implements _SearchState {
 abstract class _SearchState implements SearchState {
   const factory _SearchState(
       {final List<Item> repositoryList,
-      final SearchRepositoryFetchState fetchState,
+      final SearchFetchState fetchState,
       final int total,
       final int currentPage}) = _$SearchStateImpl;
 
   @override
   List<Item> get repositoryList;
   @override
-  SearchRepositoryFetchState get fetchState;
+  SearchFetchState get fetchState;
   @override
   int get total;
   @override
