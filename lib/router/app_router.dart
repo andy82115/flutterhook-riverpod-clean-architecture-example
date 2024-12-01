@@ -14,6 +14,7 @@ class AppRouter extends RootStackRouter {
       page: SearchRoute.page,
       initial: true,
     ),
-    AutoRoute(page: DetailRoute.page)
+    AutoRoute(page: DetailRoute.page),
+    AutoRoute(page: ErrorRoute.page)
   ];
 }
