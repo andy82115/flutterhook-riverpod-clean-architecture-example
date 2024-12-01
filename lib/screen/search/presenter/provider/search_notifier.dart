@@ -23,8 +23,8 @@ class SearchStateNotifier extends _$SearchStateNotifier {
 
 
   bool get isFetchingAllow =>
-      state.fetchState != SearchRepositoryFetchState.initLoading &&
-          state.fetchState != SearchRepositoryFetchState.moreLoading;
+      state.fetchState != SearchFetchState.initLoading &&
+          state.fetchState != SearchFetchState.moreLoading;
 
   @override
   SearchState build() {
@@ -39,12 +39,12 @@ class SearchStateNotifier extends _$SearchStateNotifier {
 
     _initSearchDebounceTimer = Timer(const Duration(milliseconds: 300), () async {
       ///do nothing if reach max page
-      if(state.fetchState == SearchRepositoryFetchState.max) return;
-      if(state.fetchState == SearchRepositoryFetchState.init) return;
+      if(state.fetchState == SearchFetchState.max) return;
+      if(state.fetchState == SearchFetchState.init) return;
 
       if (isFetchingAllow) {
         state = state.copyWith(
-            fetchState: SearchRepositoryFetchState.moreLoading
+            fetchState: SearchFetchState.moreLoading
         );
 
         _requestRepositoryApi('fetchMoreData');
@@ -120,7 +120,7 @@ class SearchStateNotifier extends _$SearchStateNotifier {
 
         ///reset param
         state = const SearchState(
-            fetchState: SearchRepositoryFetchState.initLoading
+            fetchState: SearchFetchState.initLoading
         );
 
         _requestRepositoryApi('search again');
@@ -142,8 +142,8 @@ class SearchStateNotifier extends _$SearchStateNotifier {
     state = state.copyWith(
       repositoryList: newRepositoryList,
       fetchState: newRepositoryList.length >= state.total
-          ? SearchRepositoryFetchState.max
-          : SearchRepositoryFetchState.loaded,
+          ? SearchFetchState.max
+          : SearchFetchState.loaded,
       total: response.totalCount ?? 0,
       currentPage: state.currentPage + 1,
     );
