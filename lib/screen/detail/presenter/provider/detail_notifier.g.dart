@@ -7,7 +7,7 @@ part of 'detail_notifier.dart';
 // **************************************************************************
 
 String _$detailStateNotifierHash() =>
-    r'3092da8755166dfe5aa47e009366b3d6464aab5f';
+    r'2e8daaba4d19d1e44e904d8d648bba49bd1033ed';
 
 /// See also [DetailStateNotifier].
 @ProviderFor(DetailStateNotifier)

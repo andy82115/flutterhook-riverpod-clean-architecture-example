@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../router/app_router.gr.dart';
 import '../provider/search_notifier.dart';
 import '../state/search_state.dart';
 
@@ -88,7 +89,10 @@ class _SearchResultState extends ConsumerState<SearchResult> {
             maxLines: 1,
           ),
           onTap: (){
-
+            AutoRouter.of(context).push( DetailRoute(
+                owner: data.owner?.login ?? '',
+                repo: data.name ?? ''
+            ));
           },
         );
       },
