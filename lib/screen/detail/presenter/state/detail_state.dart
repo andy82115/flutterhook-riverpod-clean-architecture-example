@@ -17,6 +17,4 @@ enum DetailFetchState {
   initLoading,
   loaded,
   fail,
-
-  ///no more data for fetching
 }

@@ -32,7 +32,8 @@ class AndyApp extends HookConsumerWidget {
   }
 }
 
-///The main builder
+///The main builder for [main_prod] and [main_dev]
+///[main_prod]と[main_dev]のメインビルダー。
 Future<void> buildMain(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
   EnvInfo.initialize(environment);

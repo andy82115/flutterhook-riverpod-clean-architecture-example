@@ -10,8 +10,8 @@ part 'api_provider.g.dart';
 
 @riverpod
 ApiService apiService(Ref ref) {
-  ///This token will stay in 30 days. Please replace your token with it.
-  ///このトークンは30日間有効です。自分のを利用してください。
+  ///Please replace your token with it.
+  ///自分のトークンを利用してください。
   const String token = 'YOUR GITHUB TOKEN';
 
   final logger = ref.watch(loggerProvider);

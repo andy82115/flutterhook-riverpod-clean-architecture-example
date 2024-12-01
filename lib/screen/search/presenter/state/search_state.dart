@@ -21,6 +21,4 @@ enum SearchFetchState {
   fail,
   moreLoading,
   max,
-
-  ///no more data for fetching
 }

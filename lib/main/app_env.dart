@@ -18,6 +18,8 @@ abstract class EnvInfo {
   static bool get isProduction => _environment == AppEnvironment.prod;
 }
 
+///Setting dif string for dif mode here
+///ここでモードごとに異なる文字を設定する
 extension _EnvProperties on AppEnvironment {
   static const _appTitles = {
     AppEnvironment.dev: 'Flutter riverpod clean-archi dev',
