@@ -1,9 +1,13 @@
 
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../router/app_router.gr.dart';
+import '../../../share/api/error/api_error_handle_provider.dart';
+import '../../../share/api/error/state/api_error_state.dart';
 import '../../../share/theme/provider/theme_provider.dart';
 import 'components/search_filter.dart';
 import 'components/search_result.dart';
@@ -21,6 +25,16 @@ class _SearchState extends ConsumerState<SearchScreen> {
   Widget build(BuildContext context) {
     final notifier = ref.watch(themeModeNotifierProvider.notifier);
     final state = ref.watch(themeModeNotifierProvider);
+    ref.listen<ApiErrorState>(apiErrorHandleNotifierProvider, (previous, next) {
+      if (next.errorState == ErrorState.error) {
+        if (previous == null || previous.errorState == ErrorState.noError){
+          AutoRouter.of(context).push(const ErrorRoute());
+        }
+      }
+      else if (next.errorState == ErrorState.noError) {
+        AutoRouter.of(context).back();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(

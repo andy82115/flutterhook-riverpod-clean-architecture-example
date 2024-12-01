@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_hook_riverpod_clean_architecture/share/api/error/api_error_handle_provider.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,6 +17,7 @@ part 'search_notifier.g.dart';
 class SearchStateNotifier extends _$SearchStateNotifier {
   late final SearchRepository repository;
   late final Logger logger;
+  late final ApiErrorHandleNotifier apiErrorHandleNotifier;
 
   SearchParam searchParam = const SearchParam();
   Timer? _initSearchDebounceTimer;
@@ -30,6 +32,7 @@ class SearchStateNotifier extends _$SearchStateNotifier {
   SearchState build() {
     repository = ref.watch(searchRepositoryImplProvider);
     logger = ref.watch(loggerProvider);
+    apiErrorHandleNotifier = ref.watch(apiErrorHandleNotifierProvider.notifier);
     return const SearchState();
   }
 
@@ -47,7 +50,7 @@ class SearchStateNotifier extends _$SearchStateNotifier {
             fetchState: SearchFetchState.moreLoading
         );
 
-        _requestRepositoryApi('fetchMoreData');
+        _requestRepositoryApi('fetchMoreData', fetchMoreData);
       }
     });
   }
@@ -123,18 +126,23 @@ class SearchStateNotifier extends _$SearchStateNotifier {
             fetchState: SearchFetchState.initLoading
         );
 
-        _requestRepositoryApi('search again');
+        _requestRepositoryApi('search again', _searchAgain);
       }
     });
   }
 
-  Future<void> _requestRepositoryApi(String tag) async {
+  Future<void> _requestRepositoryApi(String tag, Future<void> Function() retry) async {
     searchParam = searchParam.copyWith(page: state.currentPage);
-    final response = await repository.getRepositoryList(searchParam: searchParam);
+    try {
+      final response = await repository.getRepositoryList(searchParam: searchParam);
 
-    logger.d('$runtimeType: $tag success, response value = $response');
+      logger.d('$runtimeType: $tag success, response value = $response');
 
-    _updateStateFromResponse(response);
+      _updateStateFromResponse(response);
+    }
+    catch (e){
+      if(e is Exception) apiErrorHandleNotifier.addToRetryList(e, retry);
+    }
   }
 
   void _updateStateFromResponse(SearchResponse response) {

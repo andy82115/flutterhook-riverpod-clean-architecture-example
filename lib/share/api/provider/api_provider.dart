@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_hook_riverpod_clean_architecture/share/api/error/api_error_handle_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,6 +15,7 @@ ApiService apiService(Ref ref) {
   const String token = 'YOUR GITHUB TOKEN';
 
   final logger = ref.watch(loggerProvider);
+  final apiErrorHandle = ref.watch(apiErrorHandleNotifierProvider.notifier);
 
   final Dio dio = Dio()..interceptors.add(InterceptorsWrapper(
     onRequest: (options, handler) {
@@ -39,6 +41,7 @@ ApiService apiService(Ref ref) {
     },
     onError: (DioException e, handler) {
       logger.d('---interceptor--- onError: ${e.message}');
+      apiErrorHandle.reportError();
       return handler.next(e);
     },
   ));
