@@ -6,7 +6,7 @@ part of 'api_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$apiServiceHash() => r'be8b62766dd0f5c06a8d08ea7bfc7c31473ef64f';
+String _$apiServiceHash() => r'28396eb87315eb4319982dd6b0c05c3dbe9fb6b1';
 
 /// See also [apiService].
 @ProviderFor(apiService)
