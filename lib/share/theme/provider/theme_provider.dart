@@ -12,6 +12,12 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
   }
 
   Future<void> toggleTheme() async {
-    state = state != ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+    switch (state){
+      case ThemeMode.light:
+      case ThemeMode.system:
+        state = ThemeMode.dark;
+      case ThemeMode.dark:
+        state = ThemeMode.light;
+    }
   }
 }

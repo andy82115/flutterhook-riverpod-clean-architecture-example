@@ -52,9 +52,60 @@ class SearchStateNotifier extends _$SearchStateNotifier {
     });
   }
 
-  Future<void> startSearch() async{
-    ///TODO: do something before search
+  Future<void> checkKeywordAndSearch() async{
+    if (_isKeyWordEmpty()) return;
     _searchAgain();
+  }
+
+  ///[SearchParam.perPage] is a fix value
+  ///[SearchParam.page] is controlled by [SearchState.currentPage] in [fetchMoreData]
+  ///[SearchParam.perPage] は固定値。
+  ///[SearchParam.page]は[fetchMoreData]によって制御されます。
+  void setSearchCondition({
+    String? keyword,
+    InWhere? inWhere,
+    int? followers,
+    int? forks,
+    int? stars,
+    String? language,
+    SearchSort? sort,
+    SearchOrder? order,
+  }){
+    final queryFilter = _getNewQueryFilter(
+      keyword: keyword,
+      inWhere: inWhere,
+      followers: followers,
+      forks: forks,
+      stars: stars,
+      language: language,
+    );
+
+    searchParam = searchParam.copyWith(
+      queryFilter: queryFilter ?? searchParam.queryFilter,
+      sort: sort ?? searchParam.sort,
+      order: order ?? searchParam.order,
+    );
+  }
+
+  ///#Support function
+  bool _isKeyWordEmpty() => searchParam.queryFilter.keyword.isEmpty;
+
+  QueryFilter _getNewQueryFilter({
+    String? keyword,
+    InWhere? inWhere,
+    int? followers,
+    int? forks,
+    int? stars,
+    String? language,
+  }) {
+    return searchParam.queryFilter.copyWith(
+      keyword: keyword ?? searchParam.queryFilter.keyword,
+      inWhere: inWhere ?? searchParam.queryFilter.inWhere,
+      followers: followers ?? searchParam.queryFilter.followers,
+      forks: forks ?? searchParam.queryFilter.forks,
+      stars: stars ?? searchParam.queryFilter.stars,
+      language: language ?? searchParam.queryFilter.language,
+    );
   }
 
   ///#Support function -> Api search
