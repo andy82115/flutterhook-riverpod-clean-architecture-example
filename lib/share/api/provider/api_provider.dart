@@ -11,7 +11,8 @@ part 'api_provider.g.dart';
 ApiService apiService(Ref ref) {
   ///This token will stay in 30 days. Please replace your token with it.
   ///このトークンは30日間有効です。自分のを利用してください。
-  const String token = 'YOUR GITHUB TOKEN';
+  // const String token = 'YOUR GITHUB TOKEN';
+  const String token = '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';
 
   final logger = ref.watch(loggerProvider);
 
