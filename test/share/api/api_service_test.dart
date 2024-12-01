@@ -1,52 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter_hook_riverpod_clean_architecture/share/api/api_service.dart';
 import 'package:flutter_hook_riverpod_clean_architecture/share/api/model/detail_response.dart';
 import 'package:flutter_hook_riverpod_clean_architecture/share/api/model/search_response.dart';
-import 'package:flutter_hook_riverpod_clean_architecture/share/api/provider/api_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
+
+import 'mock_json_data.dart';
+
+class MockApiService extends Mock implements ApiService {}
 
 void main() {
-  final providerContainer = ProviderContainer();
   late ApiService apiService;
+  late ApiMockJsonImpl apiMockJson;
 
   setUp(() {
-    apiService = providerContainer.read(apiServiceProvider);
+    apiService = MockApiService();
+    apiMockJson = ApiMockJsonImpl();
   });
-
-  ///Remove skip if you need this test.
-  ///このテストが必要な場合は、スキップを削除してください。
+  
   group('Api test', (){
-    test('Api test get detail (with internet)', () async {
-      // arrange
-      try {
-        final response = await apiService.getRepositoryDetail('square', 'retrofit');
+    test('Api test normal response check', () async {
+      when(() => apiService.getRepositoryDetail(any(), any()))
+          .thenAnswer(
+              (_) async => DetailResponse.fromJson(jsonDecode(apiMockJson.mockDetailJson))
+      );
 
-        print('Response = $response');
-        expect(response, isA<DetailResponse>());
-      } catch (e) {
-        fail('API call failed: $e');
-      }
-    },
-        skip: 'Skip for test which need internet'
-    );
+      when(() => apiService.getRepositoryList(any(), any(), any(), any(), any()))
+          .thenAnswer(
+              (_) async => SearchResponse.fromJson(jsonDecode(apiMockJson.mockSearchJson))
+      );
 
-    test('Api test get  (with internet)', () async {
-      // arrange
-      try {
-        ///Page min is 1
-        final response = await apiService.getRepositoryList('retrofit', 'asc', 'updated', 2, 1);
+      final responseDetail = await apiService.getRepositoryDetail('owner', 'repo');
+      final responseSearch = await apiService.getRepositoryList('query', 'sort', 'order', 2, 1);
 
-        print('Response = $response');
-        expect(response, isA<SearchResponse>());
-      } catch (e) {
-        fail('API call failed: $e');
-      }
-    },
-        skip: 'Skip for test which need internet'
-    );
-  });
+      print('Response = $responseDetail');
+      print('Response = $responseSearch');
 
-  tearDown(() {
-    providerContainer.dispose();
+      expect(responseDetail, isA<DetailResponse>());
+      expect(responseSearch, isA<SearchResponse>());
+    });
   });
 }
