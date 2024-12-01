@@ -40,6 +40,9 @@ class DetailStateNotifier extends _$DetailStateNotifier {
       );
     }catch(e) {
       if (e is Exception) {
+        state = state.copyWith(
+            fetchState: DetailFetchState.fail
+        );
         apiErrorHandleNotifier.addToRetryList(e, () async{
           await fetchData(owner: owner, repo: repo);
         });

@@ -141,6 +141,9 @@ class SearchStateNotifier extends _$SearchStateNotifier {
       _updateStateFromResponse(response);
     }
     catch (e){
+      state = const SearchState(
+          fetchState: SearchFetchState.fail
+      );
       if(e is Exception) apiErrorHandleNotifier.addToRetryList(e, retry);
     }
   }
