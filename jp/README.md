@@ -57,6 +57,6 @@ A[頻繁に変更されるWidget?]
 # バグ FIX
 1. Dioのバグ [link](https://pub.dev/documentation/dio/latest/dio/RequestOptions/uri.html)
 ```dart
-final query = Transformer.urlEncodeQueryMap(queryParameters, listFormat)；
+final query = Transformer.urlEncodeQueryMap(queryParameters, listFormat);
 ```
 上記の行は `queryParameters` を強制的にエンコードします。そのため、修正のために再度書き換える必要があります。
