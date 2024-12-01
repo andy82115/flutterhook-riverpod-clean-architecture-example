@@ -15,4 +15,20 @@
 
    [optional body]
    ```
-3.  
+
+# How to work with flutter_hook + riverpod
+
+```mermaid
+graph LR
+A[Widget State Change] -->B{Complicated?}
+    B -->|Yes/TwowayData| D[Riverpod]
+    B -->|No/OnewayData| E[Flutter_hook + Riverpod]
+```
+
+# Widget Function VS Widget Class
+```mermaid
+graph LR
+A[Often to change Widget?] 
+    A -->|Yes| D[Widget Function]
+    A -->|No| E[Widget Class]
+``` 
