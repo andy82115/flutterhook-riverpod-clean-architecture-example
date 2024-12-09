@@ -3,6 +3,7 @@ import 'package:flutter_hook_riverpod_clean_architecture/share/api/error/api_err
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../main/app_env.dart';
 import '../../logger/provider/logger_provider.dart';
 import '../api_service.dart';
 
@@ -10,17 +11,18 @@ part 'api_provider.g.dart';
 
 @riverpod
 ApiService apiService(Ref ref) {
-  ///Please replace your token with it.
-  ///自分のトークンを利用してください。
-  const String token = 'YOUR GITHUB TOKEN';
+  ///This token will stay in 30 days. Please replace your token with it.
+  ///このトークンは30日間有効です。自分のを利用してください。
+  String token = EnvInfo.gitToken;
+  String baseUrl = EnvInfo.baseUrl;
 
   final logger = ref.watch(loggerProvider);
   final apiErrorHandle = ref.watch(apiErrorHandleNotifierProvider.notifier);
 
-  final Dio dio = Dio()
-    ..interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        options.headers['Authorization'] = 'Bearer $token';
+  final Dio dio = Dio()..interceptors.add(InterceptorsWrapper(
+    onRequest: (options, handler) {
+      options.headers['Authorization'] = 'Bearer $token';
+      options.baseUrl = baseUrl;
 
         ///The normal Options.uri will encode Parameter, where this API don't need it
         ///通常のOptions.uriはParameterをエンコードするが、このAPIはそれを必要としない。

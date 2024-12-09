@@ -45,5 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string> <!-- Portrait mode -->
+        <string>UIInterfaceOrientationPortraitUpsideDown</string> <!-- Upside down portrait mode -->
+    </array>
 </dict>
 </plist>
