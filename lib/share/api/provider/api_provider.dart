@@ -3,6 +3,7 @@ import 'package:flutter_hook_riverpod_clean_architecture/share/api/error/api_err
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../main/app_env.dart';
 import '../../logger/provider/logger_provider.dart';
 import '../api_service.dart';
 
