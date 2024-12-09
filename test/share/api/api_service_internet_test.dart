@@ -27,7 +27,7 @@ void main() {
         fail('API call failed: $e');
       }
     },
-        skip: 'Skip for test which need internet'
+        // skip: 'Skip for test which need internet'
     );
 
     test('Api test get  (with internet)', () async {
@@ -42,11 +42,7 @@ void main() {
         fail('API call failed: $e');
       }
     },
-        skip: 'Skip for test which need internet'
+        // skip: 'Skip for test which need internet'
     );
-  });
-
-  tearDown(() {
-    providerContainer.dispose();
   });
 }

@@ -32,8 +32,8 @@ extension _EnvProperties on AppEnvironment {
   };
 
   static const _gitTokens = {
-    AppEnvironment.dev: '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',
-    AppEnvironment.prod: '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',
+    AppEnvironment.dev: 'Your Api token',
+    AppEnvironment.prod: 'Your Api token',
   };
 
   String get _appTitle => _appTitles[this]!;
