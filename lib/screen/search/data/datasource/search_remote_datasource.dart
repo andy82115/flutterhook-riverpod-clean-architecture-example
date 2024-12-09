@@ -7,8 +7,8 @@ class SearchDataSource {
   SearchDataSource(this.apiService);
 
   Future<SearchResponse> getRepositoryList({
-        required SearchParam searchParam,
-  }) async{
+    required SearchParam searchParam,
+  }) async {
     final response = await apiService.getRepositoryList(
       searchParam.queryFilter.combineQueryString(),
       searchParam.sort.name,

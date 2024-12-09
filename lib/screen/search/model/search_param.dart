@@ -28,7 +28,9 @@ class QueryFilter with _$QueryFilter {
   }) = _QueryFilter;
 }
 
-// Define the extension for QueryFilter
+/// Define the extension for QueryFilter -> See Unit Test also
+/// This function will combine QueryFilter to string we need
+/// この関数は、QueryFilter を必要な文字列に結合する
 extension QueryFilterExtensions on QueryFilter {
   String combineQueryString() {
     final queryParts = <String>[];

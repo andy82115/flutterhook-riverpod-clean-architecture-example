@@ -15,10 +15,8 @@ void main() {
         language: 'java',
       );
 
-      expect(
-          queryFilter.combineQueryString(),
-          'retrofit+in:name+followers:>=10+forks:>=10+stars:>=10+language:java'
-      );
+      expect(queryFilter.combineQueryString(),
+          'retrofit+in:name+followers:>=10+forks:>=10+stars:>=10+language:java');
     });
 
     test('Check query filter few param', () async {
@@ -27,10 +25,7 @@ void main() {
         inWhere: InWhere.name,
       );
 
-      expect(
-          queryFilter.combineQueryString(),
-          'retrofit+in:name'
-      );
+      expect(queryFilter.combineQueryString(), 'retrofit+in:name');
     });
   });
 }

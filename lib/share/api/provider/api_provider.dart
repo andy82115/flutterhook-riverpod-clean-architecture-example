@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_hook_riverpod_clean_architecture/main/app_env.dart';
 import 'package:flutter_hook_riverpod_clean_architecture/share/api/error/api_error_handle_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -24,30 +23,30 @@ ApiService apiService(Ref ref) {
       options.headers['Authorization'] = 'Bearer $token';
       options.baseUrl = baseUrl;
 
-      ///The normal Options.uri will encode Parameter, where this API don't need it
-      ///通常のOptions.uriはParameterをエンコードするが、このAPIはそれを必要としない。
-      if (options.path.startsWith('/search/repositories')){
-        final myRequestOptions = MyRequestOptions()
-          ..path = options.path
-          ..baseUrl = options.baseUrl
-          ..queryParameters = options.queryParameters;
-        logger.d('---interceptor--- onRequest: ${myRequestOptions.uri}');
-        return handler.next(myRequestOptions);
-      }
+        ///The normal Options.uri will encode Parameter, where this API don't need it
+        ///通常のOptions.uriはParameterをエンコードするが、このAPIはそれを必要としない。
+        if (options.path.startsWith('/search/repositories')) {
+          final myRequestOptions = MyRequestOptions()
+            ..path = options.path
+            ..baseUrl = options.baseUrl
+            ..queryParameters = options.queryParameters;
+          logger.d('---interceptor--- onRequest: ${myRequestOptions.uri}');
+          return handler.next(myRequestOptions);
+        }
 
-      logger.d('---interceptor--- onRequest: ${options.uri}');
-      return handler.next(options);
-    },
-    onResponse: (response, handler) {
-      logger.d('---interceptor--- onResponse: ${response.statusCode}');
-      return handler.next(response);
-    },
-    onError: (DioException e, handler) {
-      logger.d('---interceptor--- onError: ${e.message}');
-      apiErrorHandle.reportError();
-      return handler.next(e);
-    },
-  ));
+        logger.d('---interceptor--- onRequest: ${options.uri}');
+        return handler.next(options);
+      },
+      onResponse: (response, handler) {
+        logger.d('---interceptor--- onResponse: ${response.statusCode}');
+        return handler.next(response);
+      },
+      onError: (DioException e, handler) {
+        logger.d('---interceptor--- onError: ${e.message}');
+        apiErrorHandle.reportError();
+        return handler.next(e);
+      },
+    ));
 
   return ApiService(dio);
 }
@@ -67,7 +66,6 @@ class MyRequestOptions extends RequestOptions {
     final queryParameters = this.queryParameters;
 
     if (queryParameters.isNotEmpty) {
-
       final queryString = queryParameters.entries.map((e) {
         return '${e.key}=${e.value}';
       }).join('&');

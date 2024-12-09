@@ -11,18 +11,13 @@ class DetailScreen extends StatefulHookConsumerWidget {
   final String owner;
   final String repo;
 
-  const DetailScreen({
-    required this.owner,
-    required this.repo,
-    super.key
-  });
+  const DetailScreen({required this.owner, required this.repo, super.key});
 
   @override
   ConsumerState<DetailScreen> createState() => _DetailScreenState();
 }
 
 class _DetailScreenState extends ConsumerState<DetailScreen> {
-
   @override
   Widget build(BuildContext context) {
     final notifier = ref.watch(detailStateNotifierProvider.notifier);
@@ -50,10 +45,10 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
     );
   }
 
-  Widget _switchWidget(){
+  Widget _switchWidget() {
     final notifier = ref.watch(detailStateNotifierProvider);
 
-    switch(notifier.fetchState){
+    switch (notifier.fetchState) {
       case DetailFetchState.init:
         return const Text('init');
       case DetailFetchState.loaded:
@@ -75,60 +70,52 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
         children: [
           CircleAvatar(
               radius: 25,
-              backgroundImage: NetworkImage(notifier.detailResponse.owner?.avatarUrl ?? '')
-          ),
+              backgroundImage:
+                  NetworkImage(notifier.detailResponse.owner?.avatarUrl ?? '')),
           const SizedBox(height: 30),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._columnDividerWidget(
-                    tagName: 'Repository',
-                    text: notifier.detailResponse.fullName ?? 'no repo name'
-                ),
-                ..._columnDividerWidget(
-                    tagName: 'Owner',
-                    text: notifier.detailResponse.owner?.login ?? 'no owner name'
-                ),
-                ..._columnDividerWidget(
-                    tagName: 'Description',
-                    text: notifier.detailResponse.description ?? 'no description'
-                ),
-                ..._columnDividerWidget(
-                    tagName: 'Language',
-                    text: notifier.detailResponse.language ?? 'no language tag'
-                ),
-                ..._columnDividerWidget(
-                    icon: CupertinoIcons.star,
-                    text: notifier.detailResponse.stargazersCount.toString()
-                ),
-                ..._columnDividerWidget(
-                    icon: CupertinoIcons.eye,
-                    text: notifier.detailResponse.watchersCount.toString()
-                ),
-                ..._columnDividerWidget(
-                    icon: CupertinoIcons.link,
-                    text: notifier.detailResponse.forksCount.toString()
-                ),
-                ..._columnDividerWidget(
-                    icon: CupertinoIcons.asterisk_circle,
-                    text: notifier.detailResponse.openIssuesCount.toString()
-                ),
-              ]
-          )
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            ..._columnDividerWidget(
+                tagName: 'Repository',
+                text: notifier.detailResponse.fullName ?? 'no repo name'),
+            ..._columnDividerWidget(
+                tagName: 'Owner',
+                text: notifier.detailResponse.owner?.login ?? 'no owner name'),
+            ..._columnDividerWidget(
+                tagName: 'Description',
+                text: notifier.detailResponse.description ?? 'no description'),
+            ..._columnDividerWidget(
+                tagName: 'Language',
+                text: notifier.detailResponse.language ?? 'no language tag'),
+            ..._columnDividerWidget(
+                icon: CupertinoIcons.star,
+                text: notifier.detailResponse.stargazersCount.toString()),
+            ..._columnDividerWidget(
+                icon: CupertinoIcons.eye,
+                text: notifier.detailResponse.watchersCount.toString()),
+            ..._columnDividerWidget(
+                icon: CupertinoIcons.link,
+                text: notifier.detailResponse.forksCount.toString()),
+            ..._columnDividerWidget(
+                icon: CupertinoIcons.asterisk_circle,
+                text: notifier.detailResponse.openIssuesCount.toString()),
+          ])
         ],
       ),
     );
   }
 
-  List<Widget> _columnDividerWidget({String? tagName, IconData? icon, required String text}){
+  List<Widget> _columnDividerWidget(
+      {required String text, String? tagName, IconData? icon}) {
     if (tagName == null && icon == null) return [Container()];
     return [
       tagName != null
           ? Text('$tagName: \n$text')
           : icon != null
-          ? _iconPairWidget(icon, text)
-          : Container(),
-      const SizedBox(height: 10,)
+              ? _iconPairWidget(icon, text)
+              : Container(),
+      const SizedBox(
+        height: 10,
+      )
     ];
   }
 

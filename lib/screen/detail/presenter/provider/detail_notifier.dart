@@ -23,27 +23,19 @@ class DetailStateNotifier extends _$DetailStateNotifier {
     return const DetailState();
   }
 
-  Future<void> fetchData({
-    required String owner,
-    required String repo
-  }) async{
-    state = state.copyWith(
-        fetchState: DetailFetchState.initLoading
-    );
+  Future<void> fetchData({required String owner, required String repo}) async {
+    state = state.copyWith(fetchState: DetailFetchState.initLoading);
 
     try {
-      final response = await repository.getRepositoryDetail(owner: owner, repo: repo);
+      final response =
+          await repository.getRepositoryDetail(owner: owner, repo: repo);
 
       state = state.copyWith(
-          fetchState: DetailFetchState.loaded,
-          detailResponse: response
-      );
-    }catch(e) {
+          fetchState: DetailFetchState.loaded, detailResponse: response);
+    } catch (e) {
       if (e is Exception) {
-        state = state.copyWith(
-            fetchState: DetailFetchState.fail
-        );
-        apiErrorHandleNotifier.addToRetryList(e, () async{
+        state = state.copyWith(fetchState: DetailFetchState.fail);
+        apiErrorHandleNotifier.addToRetryList(e, () async {
           await fetchData(owner: owner, repo: repo);
         });
       }

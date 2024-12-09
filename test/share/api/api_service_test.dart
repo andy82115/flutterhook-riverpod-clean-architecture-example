@@ -18,24 +18,22 @@ void main() {
     apiService = MockApiService();
     apiMockJson = ApiMockJsonImpl();
   });
-  
-  group('Api test', (){
+
+  group('Api test', () {
     test('Api test normal response check', () async {
-      when(() => apiService.getRepositoryDetail(any(), any()))
-          .thenAnswer(
-              (_) async => DetailResponse.fromJson(jsonDecode(apiMockJson.mockDetailJson))
-      );
+      when(() => apiService.getRepositoryDetail(any(), any())).thenAnswer(
+          (_) async =>
+              DetailResponse.fromJson(jsonDecode(apiMockJson.mockDetailJson)));
 
-      when(() => apiService.getRepositoryList(any(), any(), any(), any(), any()))
-          .thenAnswer(
-              (_) async => SearchResponse.fromJson(jsonDecode(apiMockJson.mockSearchJson))
-      );
+      when(() =>
+              apiService.getRepositoryList(any(), any(), any(), any(), any()))
+          .thenAnswer((_) async =>
+              SearchResponse.fromJson(jsonDecode(apiMockJson.mockSearchJson)));
 
-      final responseDetail = await apiService.getRepositoryDetail('owner', 'repo');
-      final responseSearch = await apiService.getRepositoryList('query', 'sort', 'order', 2, 1);
-
-      print('Response = $responseDetail');
-      print('Response = $responseSearch');
+      final responseDetail =
+          await apiService.getRepositoryDetail('owner', 'repo');
+      final responseSearch =
+          await apiService.getRepositoryList('query', 'sort', 'order', 2, 1);
 
       expect(responseDetail, isA<DetailResponse>());
       expect(responseSearch, isA<SearchResponse>());

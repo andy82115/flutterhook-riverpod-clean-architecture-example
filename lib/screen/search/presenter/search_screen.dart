@@ -1,5 +1,3 @@
-
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +25,10 @@ class _SearchState extends ConsumerState<SearchScreen> {
     final state = ref.watch(themeModeNotifierProvider);
     ref.listen<ApiErrorState>(apiErrorHandleNotifierProvider, (previous, next) {
       if (next.errorState == ErrorState.error) {
-        if (previous == null || previous.errorState == ErrorState.noError){
+        if (previous == null || previous.errorState == ErrorState.noError) {
           AutoRouter.of(context).push(const ErrorRoute());
         }
-      }
-      else if (next.errorState == ErrorState.noError) {
+      } else if (next.errorState == ErrorState.noError) {
         AutoRouter.of(context).back();
       }
     });
@@ -45,7 +42,8 @@ class _SearchState extends ConsumerState<SearchScreen> {
             children: [
               const Text('検索画面'),
               CupertinoButton(
-                padding: const EdgeInsets.all( 3 ), // Remove padding if you only want the icon to be clickable
+                padding: const EdgeInsets.all(
+                    3), // Remove padding if you only want the icon to be clickable
                 onPressed: () {
                   notifier.toggleTheme();
                 },
@@ -53,8 +51,9 @@ class _SearchState extends ConsumerState<SearchScreen> {
                   state != ThemeMode.dark
                       ? CupertinoIcons.sun_max_fill
                       : CupertinoIcons.moon,
-                  size: 20,  // Set the size of the icon
-                  color: CupertinoColors.systemYellow,  // Set the color of the icon
+                  size: 20, // Set the size of the icon
+                  color:
+                      CupertinoColors.systemYellow, // Set the color of the icon
                 ),
               ),
             ],

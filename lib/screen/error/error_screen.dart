@@ -15,7 +15,6 @@ class ErrorScreen extends StatefulHookConsumerWidget {
 }
 
 class _ErrorState extends ConsumerState<ErrorScreen> {
-
   @override
   void dispose() {
     super.dispose();
@@ -52,7 +51,9 @@ class _ErrorState extends ConsumerState<ErrorScreen> {
               size: 250,
               color: Colors.red,
             ),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
             SizedBox(
               width: 150,
               height: 100,

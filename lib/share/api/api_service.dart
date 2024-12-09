@@ -12,16 +12,16 @@ abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
   @GET('/search/repositories')
   Future<SearchResponse> getRepositoryList(
-      @Query('q', encoded: true) String query,
-      @Query('sort') String sort,
-      @Query('order') String order,
-      @Query('per_page') int perPage,
-      @Query('page') int page,
-      );
+    @Query('q', encoded: true) String query,
+    @Query('sort') String sort,
+    @Query('order') String order,
+    @Query('per_page') int perPage,
+    @Query('page') int page,
+  );
 
   @GET('/repos/{owner}/{repo}')
   Future<DetailResponse> getRepositoryDetail(
-      @Path('owner') String owner,
-      @Path('repo') String repo,
-      );
+    @Path('owner') String owner,
+    @Path('repo') String repo,
+  );
 }

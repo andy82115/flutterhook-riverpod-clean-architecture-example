@@ -3,7 +3,7 @@ abstract class ApiMockJson {
   String get mockSearchJson;
 }
 
-class ApiMockJsonImpl extends ApiMockJson{
+class ApiMockJsonImpl extends ApiMockJson {
   @override
   String get mockDetailJson => '''
   {

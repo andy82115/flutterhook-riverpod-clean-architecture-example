@@ -8,6 +8,7 @@ abstract class EnvInfo {
   }
 
   static String get appName => _environment._appTitle;
+
   static String get envName => _environment._envName;
   static String get gitToken => _environment._gitToken;
   static String get baseUrl => _environment._baseUrl;

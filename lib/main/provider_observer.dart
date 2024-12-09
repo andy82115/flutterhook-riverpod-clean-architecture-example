@@ -14,27 +14,22 @@ class AppProviderObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    logger.i(
-      '''
+    logger.i('''
         { ---provider update---
           "provider": "${provider.name ?? provider.runtimeType}",
           "updValue": "$newValue"
         }
-      '''
-    );
+      ''');
   }
 
   @override
   void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
-
-    logger.i(
-        '''
+    logger.i('''
         { ---provider update---
           "provider": "${provider.name ?? provider.runtimeType}",
           "updValue": "disposed"
         }
-      '''
-    );
+      ''');
     super.didDisposeProvider(provider, container);
   }
 }
