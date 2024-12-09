@@ -9,7 +9,8 @@ abstract class EnvInfo {
 
   static String get appName => _environment._appTitle;
   static String get envName => _environment._envName;
-  static String get connectionString => _environment._connectionString;
+  static String get gitToken => _environment._gitToken;
+  static String get baseUrl => _environment._baseUrl;
   static AppEnvironment get environment => _environment;
   static bool get isProduction => _environment == AppEnvironment.prod;
 }
@@ -20,7 +21,7 @@ extension _EnvProperties on AppEnvironment {
     AppEnvironment.prod: 'Flutter riverpod clean-archi prod',
   };
 
-  static const _connectionStrings = {
+  static const _baseUrls = {
     AppEnvironment.dev: 'https://api.github.com/',
     AppEnvironment.prod: 'https://api.github.com/',
   };
@@ -30,7 +31,13 @@ extension _EnvProperties on AppEnvironment {
     AppEnvironment.prod: 'prod',
   };
 
+  static const _gitTokens = {
+    AppEnvironment.dev: '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',
+    AppEnvironment.prod: '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',
+  };
+
   String get _appTitle => _appTitles[this]!;
   String get _envName => _envs[this]!;
-  String get _connectionString => _connectionStrings[this]!;
+  String get _baseUrl => _baseUrls[this]!;
+  String get _gitToken => _gitTokens[this]!;
 }

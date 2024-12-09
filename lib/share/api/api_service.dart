@@ -7,7 +7,7 @@ import 'model/search_response.dart';
 
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: 'https://api.github.com/')
+@RestApi(baseUrl: '')
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
   @GET('/search/repositories')
