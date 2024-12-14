@@ -13,9 +13,10 @@ flutter pub run build_runner build
 ```
 main_dev.dart / main_prod.dart
 ```
-Step4 -> トークンを Github Api トークンに変更する。
+Step4 -> トークンを Github Api トークンに変更する。app_env.dart中。
 ```
-const String token = 'YOUR GITHUB TOKEN';  //lib/share/api/provider/api_provider.dart
+AppEnvironment.dev: 'Your Api token',
+AppEnvironment.prod: 'Your Api token',
 ```
 
 # 開発ステップ
