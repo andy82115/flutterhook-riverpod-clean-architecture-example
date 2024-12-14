@@ -13,9 +13,10 @@ Step3 -> choose config prod/dev at lib.main
 ```
 main_dev.dart / main_prod.dart
 ```
-Step4 -> change Token to your Github Api Token
+Step4 -> change Token to 'Your Api token' in app_env.dart
 ```
-const String token = 'YOUR GITHUB TOKEN'; //lib/share/api/provider/api_provider.dart
+AppEnvironment.dev: 'Your Api token',
+AppEnvironment.prod: 'Your Api token',
 ```
 
 # Step for dev
