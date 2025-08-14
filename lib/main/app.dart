@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_hook_riverpod_clean_architecture/main/provider_observer.dart';
 import 'package:flutter_hook_riverpod_clean_architecture/share/theme/provider/theme_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,6 +37,7 @@ class AndyApp extends HookConsumerWidget {
 ///[main_prod]と[main_dev]のメインビルダー。
 Future<void> buildMain(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   EnvInfo.initialize(environment);
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle.light.copyWith(
