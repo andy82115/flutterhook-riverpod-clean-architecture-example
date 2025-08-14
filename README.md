@@ -54,7 +54,7 @@ A[Often to change Widget?]
     A -->|No| E[Widget Class]
 ``` 
 
-# Fatal Bug Recode
+# Fatal Bug Record
 1. Facing Dio bug [link](https://pub.dev/documentation/dio/latest/dio/RequestOptions/uri.html)
 ```dart
 final query = Transformer.urlEncodeQueryMap(queryParameters, listFormat);

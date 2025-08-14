@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 enum AppEnvironment { dev, prod }
 
 abstract class EnvInfo {
@@ -17,24 +19,24 @@ abstract class EnvInfo {
 }
 
 extension _EnvProperties on AppEnvironment {
-  static const _appTitles = {
+  static final _appTitles = {
     AppEnvironment.dev: 'Flutter riverpod clean-archi dev',
     AppEnvironment.prod: 'Flutter riverpod clean-archi prod',
   };
 
-  static const _baseUrls = {
-    AppEnvironment.dev: 'https://api.github.com/',
-    AppEnvironment.prod: 'https://api.github.com/',
+  static final _baseUrls = {
+    AppEnvironment.dev: dotenv.env['DEV_BASE_URL'],
+    AppEnvironment.prod: dotenv.env['PROD_BASE_URL'],
   };
 
-  static const _envs = {
+  static final _envs = {
     AppEnvironment.dev: 'dev',
     AppEnvironment.prod: 'prod',
   };
 
-  static const _gitTokens = {
-    AppEnvironment.dev: 'Your Api token',
-    AppEnvironment.prod: 'Your Api token',
+  static final _gitTokens = {
+    AppEnvironment.dev: dotenv.env['DEV_GIT_TOKEN'],
+    AppEnvironment.prod:  dotenv.env['PROD_GIT_TOKEN'],
   };
 
   String get _appTitle => _appTitles[this]!;
