@@ -1,22 +1,26 @@
 言語: - [English](./en/README.md) - [日本語](./jp/README.md) 
 
 # このプロジェクトの実行方法 :sunglasses：
-ステップ1
+Step1 -> .env.sampleをコピーして、名前は.envに変更します
+```
+cp .env.sample .env
+```
+Step2 -> 'YourToken'は自分のGIT TOKENに変更します
+```
+DEV_GIT_TOKEN=YourToken
+PROD_GIT_TOKEN=YourToken
+```
+Step3
 ```
 flutter pub get
 ```
-Step2 -> .g/.freeze が生成されなかった場合
+Step4 -> .g/.freeze のCODEを生成します
 ```
 flutter pub run build_runner build 
 ```
-ステップ3 -> lib.mainでprod/devの設定を選択する。
+Step5 -> prodやdevの環境を利用しますlib/main
 ```
 main_dev.dart / main_prod.dart
-```
-Step4 -> トークンを Github Api トークンに変更する。app_env.dart中。
-```
-AppEnvironment.dev: 'Your Api token',
-AppEnvironment.prod: 'Your Api token',
 ```
 
 # 開発ステップ

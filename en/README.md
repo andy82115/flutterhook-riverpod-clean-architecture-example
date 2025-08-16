@@ -1,21 +1,26 @@
 Choose your language: - [English](./en/README.md) - [日本語](./jp/README.md)
 
 # How to run this project :sunglasses:
-Step1
+Step1 -> copy .env.sample and named it to .env
+```
+cp .env.sample .env
+```
+Step2 -> change Token to 'YourToken' in .env
+```
+DEV_GIT_TOKEN=YourToken
+PROD_GIT_TOKEN=YourToken
+```
+Step3
 ```
 flutter pub get
 ```
-Step2 -> if .g/.freeze didn't generated
+Step4 -> if .g/.freeze didn't generated
 ```
 flutter pub run build_runner build 
 ```
-Step3 -> choose config prod/dev at lib.main
+Step5 -> choose config prod/dev at lib.main to run
 ```
 main_dev.dart / main_prod.dart
-```
-Step4 -> change Token to your Github Api Token
-```
-const String token = 'YOUR GITHUB TOKEN'; //lib/share/api/provider/api_provider.dart
 ```
 
 # Step for dev
